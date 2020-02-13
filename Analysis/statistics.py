@@ -17,7 +17,7 @@ class Statistics:
 
         self.participants = participants
 
-    def calc_statistics(self):
+    def calc_statistics(self, iou_thresh=0.25):
 
         data = []
 
