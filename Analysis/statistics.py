@@ -23,7 +23,11 @@ class Statistics:
 
         for participant in self.participants:
 
-            ground_truth = [temp for temp in self.participants if temp.ProjectType == ProjectType.GroundTruth and temp.DatasetType == participant.DatasetType][0]
+            ground_truths = [temp for temp in self.participants if temp.ProjectType == ProjectType.GroundTruth and temp.DatasetType == participant.DatasetType]
+            if len(ground_truths) > 0:
+                ground_truth = ground_truths[0]
+            else:
+                print(participant)
 
             miou = participant.calc_MIoU(ground_truth)
             data.append([participant.expert, participant.DatasetType, participant.ProjectType ,participant.total_annotations, participant.mean_seconds_to_label, miou])

@@ -25,7 +25,13 @@ class Expert:
 
     def __init__(self, participant, bbType, dataset_type: DatasetType, annotation_type: ProjectType):
 
-        self.participant = participant 
+        expert_lookup = {"3":"1", "4":"2", "5":"3", "6":"4", "7":"5", "8":"6", "9":"7", "11":"8", "12":"9", "13":"10"}
+        
+        if annotation_type != ProjectType.GroundTruth:
+            self.participant = participant.split("_")[0]+ "_" + expert_lookup[participant.split("_")[1]] 
+        else:
+            self.participant = participant
+
         self.images = {}
         self.bbType = bbType
         self.dataset_type = dataset_type
