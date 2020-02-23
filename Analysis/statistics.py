@@ -29,13 +29,17 @@ class Statistics:
             else:
                 print(participant)
 
+            order = -1
+            if "_" in participant.expert:
+                order = int(participant.expert.split("_")[1])
+
             miou = participant.calc_MIoU(ground_truth)
-            data.append([participant.expert, participant.DatasetType, participant.ProjectType ,participant.total_annotations, participant.mean_seconds_to_label, miou])
+            data.append([participant.expert, participant.DatasetType, participant.ProjectType ,participant.total_annotations, participant.mean_seconds_to_label, miou, order])
 
-        return pd.DataFrame(data, columns=['Name', 'Dataset', 'ProjectType', 'Nr. Annotations', 'Seconds', 'mIoU'])
+        return pd.DataFrame(data, columns=['Name', 'Dataset', 'ProjectType', 'Nr. Annotations', 'Seconds', 'mIoU', 'Order'])
 
 
-    def get_annotations(self, image_name):
+    def get_file_annotations(self, image_name):
 
         data = []
 
@@ -47,10 +51,23 @@ class Statistics:
             annotations = image.Annotations
 
             for anno in annotations:
-                data.append([participant.expert, anno.Vector, anno.Label, participant.ProjectType])
+                data.append([participant.expert, anno.Vector, anno.Label, participant.ProjectType, participant.DatasetType])
 
-        return pd.DataFrame(data, columns=['Name', 'Vector', 'Label', 'ProjectType'])
+        return pd.DataFrame(data, columns=['Name', 'Vector', 'Label', 'ProjectType', 'DatasetType'])
         
+    def get_annotations(self):
+
+        data = []
+
+        for participant in self.participants:
+            for image in participant.Images.values():
+                annotations = image.Annotations
+
+                for anno in annotations:
+                    data.append([image.FileName, participant.expert, anno.Vector, anno.Label, str(participant.ProjectType), str(participant.DatasetType)])
+
+        return pd.DataFrame(data, columns=['FileName', 'Name', 'Vector', 'Label', 'ProjectType', 'DatasetType'])
+
 
     def get_most_active_region(self, image_name: str, radius: int = 1024):
 
