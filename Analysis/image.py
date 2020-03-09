@@ -2,8 +2,8 @@ import numpy as np
 from datetime import datetime
 from Analysis.annotations import Annotation
 
-from BoundingBoxes import BoundingBoxes
-from utils import *
+from lib.BoundingBoxes import BoundingBoxes
+from lib.utils import *
 
 class Image:
 

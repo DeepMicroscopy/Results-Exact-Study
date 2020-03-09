@@ -106,3 +106,9 @@ venv.bak/
 
 Patches/
 *.dll
+paper_results.ipynb
+PatchClassification/loss_temp.py
+.vscode/launch.json
+.vscode/settings.json
+NMS_Experiments.ipynb
+convertTimePoints.py

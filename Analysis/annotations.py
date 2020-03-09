@@ -3,9 +3,8 @@ import numpy as np
 from datetime import datetime
 from enum import Enum
 
-from BoundingBox import BoundingBox
-from utils import *
-
+from lib.BoundingBox import BoundingBox
+from lib.utils import *
 
 
 
