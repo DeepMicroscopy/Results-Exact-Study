@@ -120,6 +120,21 @@ class Expert:
 
         return np.mean(specificity)
 
+    def calc_precision(self, second_expert, fake_cells, iou_thresh: float=0.25):
+        metricsPerClass = self.calc_metrics(second_expert, iou_thresh)
+        metricsPerClassFakeCells = self.calc_metrics(fake_cells, iou_thresh)
+
+        precision = []
+        for mc, fake in zip(metricsPerClass, metricsPerClassFakeCells):
+            fp = mc['total FP']
+            tp = mc['total TP']
+            #tn = fake['total positives'] - fake['total TP']
+
+            precision.append(tp / (tp + fp))
+
+        return np.mean(precision)
+
+
 
     def add_file(self, path : str):
 
