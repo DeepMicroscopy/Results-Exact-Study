@@ -112,6 +112,10 @@ class Annotation:
         return self.last_edit_time
 
     @property
+    def Center(self):
+        return (self.x_min + (self.x_max - self.x_min) / 2, self.y_min + (self.y_max - self.y_min) / 2)
+
+    @property
     def BBox(self):
 
         return BoundingBox(imageName=self.image_name, classId=self.Label, x=self.x_min,

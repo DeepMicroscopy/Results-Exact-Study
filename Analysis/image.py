@@ -1,5 +1,7 @@
 import numpy as np
 from datetime import datetime
+from sklearn.neighbors import KDTree
+
 from Analysis.annotations import Annotation
 
 from lib.BoundingBoxes import BoundingBoxes
@@ -132,3 +134,28 @@ class Image:
 
     def add_close_time_point(self, time_point):
         self.close_time_points.append(time_point)
+
+
+    def keep_annotations_with_num_votes(self, n:int=3, r:int=50):
+        final_annotations = []
+
+        temp_annotations = np.array(self.annotations)
+        while (len(temp_annotations) > 0):
+
+            query_anno = temp_annotations[0]
+
+            centers = [anno.Center for anno in temp_annotations]
+            tree = KDTree(centers)         
+            index_per_point = tree.query_radius([query_anno.Center], r=r)[0]
+
+            # at least n votes
+            if len(index_per_point) >= n:
+                final_annotations.append(query_anno)
+
+            temp_annotations = np.delete(temp_annotations, index_per_point, None)
+
+        self.annotations = final_annotations
+
+
+
+

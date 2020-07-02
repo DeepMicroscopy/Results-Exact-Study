@@ -1,5 +1,7 @@
 import numpy as np
+import copy
 from Analysis.image import Image
+from Analysis.annotations import Annotation
 
 from lib.BoundingBoxes import BoundingBoxes
 from lib.Evaluator import *
@@ -135,6 +137,22 @@ class Expert:
         return np.mean(precision)
 
 
+    def add_experts(self, experts, num_votes:int=2):
+
+        for expert in experts:
+            for file_name in expert.Images:
+                if file_name not in self.images:
+                    self.images[file_name] = copy.deepcopy(expert.Images[file_name])
+                    self.images[file_name].bbType = self.bbType
+                else:
+                    self.images[file_name].annotations += expert.Images[file_name].annotations
+            
+        for file_name in self.images:
+            self.images[file_name].annotations = [copy.deepcopy(anno) for anno in self.images[file_name].annotations]
+            for anno in self.images[file_name].annotations:
+                anno.anno_type = self.bbType
+
+            self.images[file_name].keep_annotations_with_num_votes(n=num_votes)
 
     def add_file(self, path : str):
 

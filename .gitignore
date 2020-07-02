@@ -118,3 +118,7 @@ model/RetinaNetFocalLoss.py
 train.py
 ~$Anova.xlsx
 /helper
+*.eps
+*.tif
+*.emf
+*test*.py
