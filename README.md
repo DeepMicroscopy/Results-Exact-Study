@@ -9,7 +9,7 @@ In total, ten pathology experts annotated 26,015 cells on 1,200 images in this n
 
 # Results
 
-We employed the open-source platform [EXACT](https://github.com/ChristianMarzahl/Exact) to host our experiments. Additionaly, the study is staying online for further contributions. 
+We employed the open-source platform [EXACT](https://github.com/ChristianMarzahl/Exact) available at [https://exact.cs.fau.de](https://exact.cs.fau.de) to host our experiments. Additionaly, the study is staying online for further contributions. 
 
 ```
 User: StudyJan2020
